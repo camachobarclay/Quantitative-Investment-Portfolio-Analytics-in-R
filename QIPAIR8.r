@@ -5,7 +5,7 @@ library(PortfolioAnalytics)
 library(quadprog)
 library(ROI.plugin.quadprog)
 
-
+library(Perc)
 
 library(TTR)
 library(xts)
@@ -104,7 +104,7 @@ returns <- na.omit(ROC(prices['2007-12-31::2017-12-31'],
                        na.pad = FALSE))
 
 covar.1 <- cov(returns) # calculate covariance matrix
-risk.parity.w <- PERC(covar.1) # risk parity weights
+risk.parity.w <- perc(covar.1) # risk parity weights
 risk.parity.w
 
 funds <-colnames(returns)
@@ -129,7 +129,7 @@ port.a1 <- optimize.portfolio(R = returns,
 round(extractWeights(port.a1)*100,3)
 
 getSymbols("SPY", src = "yahoo", auto.assign=T)
-spy.1 <-C1(SPY["2010-12-31::2015-12-31"])
+spy.1 <-Cl(SPY["2010-12-31::2015-12-31"])
 
 #function to generate SPY vol target weights
 vol.target.w <-function(x,y){# x=asset price, y =risk factor
